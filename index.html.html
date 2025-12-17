@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hub de Links Úteis - GC Koch</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0056b3; /* Azul Koch */
+            --primary-light: #e6f0ff;
+            --primary-dark: #003d82;
+            --secondary: #f8f9fa;
+            --light: #ffffff;
+            --dark: #333333;
+            --gray: #6c757d;
+            --border: #dee2e6;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --card-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8fafc;
+            background-image: linear-gradient(to bottom, #f1f5f9, #e2e8f0);
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1500px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+            margin-bottom: 30px;
+        }
+        
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+            gap: 15px;
+        }
+        
+        .logo {
+            height: 80px;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+        }
+        
+        h1 {
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--gray);
+            max-width: 800px;
+            margin: 0 auto 25px;
+        }
+        
+        .section-title {
+            color: var(--primary);
+            font-size: 1.8rem;
+            margin: 40px 0 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--primary-light);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .section-title i {
+            background-color: var(--primary-light);
+            padding: 10px;
+            border-radius: 8px;
+        }
+        
+        .breadcrumb {
+            background-color: var(--primary-light);
+            padding: 12px 25px;
+            border-radius: 8px;
+            margin-bottom: 40px;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--primary);
+        }
+        
+        .breadcrumb i {
+            margin-right: 10px;
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+        
+        .path-text {
+            font-family: 'Courier New', monospace;
+            font-weight: 500;
+        }
+        
+        .tools-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .tool-card {
+            background-color: var(--light);
+            border-radius: 12px;
+            padding: 30px;
+            transition: all 0.4s ease;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+        
+        .tool-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--card-shadow);
+            border-color: var(--primary);
+        }
+        
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 100%;
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+        }
+        
+        .tool-card:hover::before {
+            width: 8px;
+        }
+        
+        .icon-container {
+            width: 70px;
+            height: 70px;
+            background: var(--primary-light);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .tool-card:hover .icon-container {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            transform: rotate(5deg);
+        }
+        
+        .icon-container i {
+            font-size: 2rem;
+            color: var(--primary);
+            transition: all 0.3s ease;
+        }
+        
+        .tool-card:hover .icon-container i {
+            color: white;
+            transform: scale(1.1);
+        }
+        
+        .tool-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+        
+        .tool-card p {
+            margin-bottom: 25px;
+            color: #555;
+            flex-grow: 1;
+            line-height: 1.7;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-align: center;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            box-shadow: 0 4px 8px rgba(0, 86, 179, 0.2);
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: var(--primary-dark);
+            transition: width 0.4s ease;
+            z-index: -1;
+        }
+        
+        .btn:hover::after {
+            width: 100%;
+        }
+        
+        .btn:hover {
+            box-shadow: 0 6px 12px rgba(0, 86, 179, 0.3);
+        }
+        
+        .btn i {
+            margin-right: 10px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 15px 0;
+            margin-top: 15px;
+            color: var(--gray);
+            font-size: 0.6rem;
+            border-top: 1px solid var(--border);
+        }
+        
+        .path-info {
+            font-family: 'Courier New', monospace;
+            background-color: var(--primary-light);
+            padding: 8px 15px;
+            border-radius: 6px;
+            margin-top: 15px;
+            display: inline-block;
+            font-weight: 500;
+            box-shadow: var(--shadow);
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin: 20px 0 40px;
+            padding: 10px 20px;
+            background-color: var(--primary-light);
+            color: var(--primary);
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .back-link:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        /* Decoração adicional */
+        .decoration {
+            position: fixed;
+            z-index: -1;
+            opacity: 0.1;
+        }
+        
+        .circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: var(--primary);
+            top: -100px;
+            right: -100px;
+        }
+        
+        .triangle {
+            width: 200px;
+            height: 200px;
+            border-left: 100px solid transparent;
+            border-right: 100px solid transparent;
+            border-bottom: 173px solid var(--primary);
+            bottom: -100px;
+            left: -50px;
+            transform: rotate(15deg);
+        }
+        
+        @media (max-width: 768px) {
+            .tools-container {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .logo {
+                height: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="decoration circle"></div>
+    <div class="decoration triangle"></div>
+    
+    <div class="container">
+        <header>
+            <div class="logo-container">
+                <img src="K:\Gerenciamento Categorias\Hian\01-FERRAMENTAS GC\logo2.png" alt="Logo Koch" class="logo">
+                <div>
+                    <h1>Links Úteis - GC Koch</h1>
+                </div>
+            </div>
+        </header>
+		<div class="tools-container">
+	<!-- Grupo WhatsApp GC -->
+            <div class="tool-card">
+                <div class="icon-container">
+                    <i class="fab fa-whatsapp"></i>
+                </div>
+                <h3>Grupo WhatsApp GC</h3>
+                <p>Participe do grupo oficial de WhatsApp do Gerenciamento de Categorias para comunicação ágil, avisos importantes e troca de informações.</p>
+                <a href="https://chat.whatsapp.com/EzAShT4kD9p834WFBzp8ll" target="_blank" class="btn">
+                    <i class="fab fa-whatsapp"></i> Entrar no Grupo
+                </a>
+            </div>
+        
+        
+            <!-- Dúvidas - Contato GC -->
+            <div class="tool-card">
+                <div class="icon-container">
+                    <i class="fas fa-question-circle"></i>
+                </div>
+                <h3>Dúvidas - Contato GC</h3>
+                <p>Canal direto para esclarecimento de dúvidas e suporte relacionado ao Gerenciamento de Categorias.</p>
+                <a href="https://x.gd/RJhFN" target="_blank" class="btn">
+                     <i class="fab fa-whatsapp"></i> Contato WhatsApp
+
+                </a>
+            </div>
+            
+            <!-- Contato Cadastro -->
+            <div class="tool-card">
+                <div class="icon-container">
+                    <i class="fas fa-user-plus"></i>
+                </div>
+                <h3>Contato Cadastro</h3>
+                <p>Setor de cadastro de novos itens e marcas. Contato direto para duvidas e erros relacionados a cadastro.</p>
+                <a href="https://api.whatsapp.com/send/?phone=554832638216&text&type=phone_number&app_absent=0" target="_blank" class="btn">
+                    <i class="fab fa-whatsapp"></i> Contato WhatsApp
+                </a>
+            </div>
+            
+            
+            
+            <!-- Plantas das Lojas -->
+            <div class="tool-card">
+                <div class="icon-container">
+                    <i class="fas fa-building"></i>
+                </div>
+                <h3>Plantas das Lojas</h3>
+                <p>Acesse as plantas e layouts físicos de todas as lojas da rede. Essencial para planejamento de espaços e disposição de categorias.</p>
+                <a href="https://x.gd/CPHOp" target="_blank" class="btn">
+                    <i class="fas fa-external-link-alt"></i> Acessar Plantas
+                </a>
+            </div>
+           
+            <!-- PDF Planogramas -->
+            <div class="tool-card">
+                <div class="icon-container">
+                    <i class="fas fa-th-large"></i>
+                </div>
+                <h3>PDF Planogramas</h3>
+                <p>Biblioteca completa de planogramas em formato PDF. Documentos organizados por categoria para execução.</p>
+                <a href="https://x.gd/V2HyS" target="_blank" class="btn">
+                    <i class="fas fa-file-pdf"></i> Acessar Planogramas
+                </a>
+            </div>
+
+            <!-- Solicitação de QR Codes -->
+            <div class="tool-card">
+                <div class="icon-container">
+                    <i class="fas fa-qrcode"></i>
+                </div>
+                <h3>Solicitação de QR Codes</h3>
+                <p>Formulário para solicitar o envio de novos QR codes que estejam rasurados ou em falta.</p>
+                <a href="https://forms.office.com/r/pQSJ2MCp3b" target="_blank" class="btn">
+                    <i class="fas fa-edit"></i> Solicitar QR Code
+                </a>
+            </div>
+            
+            <!-- Novos Produtos/Marcas -->
+            <div class="tool-card">
+                <div class="icon-container">
+                    <i class="fas fa-plus-circle"></i>
+                </div>
+                <h3>Novos Produtos/Marcas</h3>
+                <p>Acompanhe os produtos e marcas recém-cadastrados no sistema. Mantenha-se atualizado sobre as novidades e exposições dos novos produtos.</p>
+                <a href="https://x.gd/sOfqP" target="_blank" class="btn">
+                    <i class="fas fa-external-link-alt"></i> Ver Novidades
+                </a>
+            </div>
+            
+            <!-- Planogramas - Recorte - Komprão -->
+            <div class="tool-card">
+                <div class="icon-container">
+                    <i class="fas fa-cut"></i>
+                </div>
+                <h3>Planogramas - Recorte - Komprão</h3>
+                <p>Acesso específico aos planogramas de recorte e layout do Komprão para impressão.</p>
+                <a href="https://x.gd/Dmqos" target="_blank" class="btn">
+                    <i class="fas fa-shopping-cart"></i> Acessar Recortes
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
